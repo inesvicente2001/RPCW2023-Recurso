@@ -18,3 +18,21 @@ db.repairs.distinct("viatura.marca").sort()
 
 1.2.4
 db.repairs.aggregate([{$unwind: "$intervencoes"}, {$group: {_id: "$intervencoes.nome", count: {$sum: 1}}}])
+
+
+
+Como executar:
+
+-> Script para geração de IDs: `python atribute_id.py`;
+-> API de Dados:
+```
+$ cd ex1
+$ npm i
+$ npm start
+```
+-> Servidor com Interface Web:
+```
+$ cd ex2
+$ npm i
+$ npm start 
+```
