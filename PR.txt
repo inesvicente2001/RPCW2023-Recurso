@@ -1,0 +1,20 @@
+1.1
+Correndo `python atribute_id.py`, foi criado o ficheiro `dataset-reparacoes-id.json`, que corresponde à lista de reparações que está dentro do dicionário do ficheiro `dataset-reparacoes.json` com ids em cada elemento.
+
+Para importar a database, usei os seguintes comandos:
+`sudo docker cp dataset-reparacoes-id.json mymongo:/tmp/reparacoes.json`
+`sudo docker exec mongo6 mongoimport -d autoRepair -c repairs --file /tmp/reparacoes.json --jsonArray`
+
+A importanção correu bem porque, ao escrever `show dbs`, aparece lá a db `autoRepair` e ao fazer `use autoRepair` e `show collections` aparece lá a coleção `repairs`.
+
+1.2.1
+db.repairs.find().count()
+
+1.2.2
+db.repairs.find({"viatura.marca": "Cadillac"}).count()
+
+1.2.3
+db.repairs.distinct("viatura.marca").sort()
+
+1.2.4
+db.repairs.aggregate([{$unwind: "$intervencoes"}, {$group: {_id: "$intervencoes.nome", count: {$sum: 1}}}])
